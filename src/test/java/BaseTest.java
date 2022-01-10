@@ -16,6 +16,16 @@ public class BaseTest {
 //  public void f(Integer n, String s) {
 //  }
 	
+  @BeforeTest
+  public void beforeTest() {
+  	System.out.println("beforeTest method running");
+  	
+  	System.setProperty("webdriver.chrome.driver", "/Users/sankalpchugh/Projects/Selenium/chromedriver");
+  	
+  	//setup webdriver & navigate to test page
+  	driver=new ChromeDriver();
+  }
+  
 	@BeforeClass	//runs after beforeTest method
   public void beforeClass() {
 		System.out.println("beforeClass method running");
@@ -28,15 +38,7 @@ public class BaseTest {
   	driver.navigate().to("http://automationpractice.com/index.php");
   }
   
-  @BeforeTest
-  public void beforeTest() {
-  	System.out.println("beforeTest method running");
-  	
-  	System.setProperty("webdriver.chrome.driver", "/Users/sankalpchugh/Projects/Selenium/chromedriver");
-  	
-  	//setup webdriver & navigate to test page
-  	driver=new ChromeDriver();
-  }
+
   
 
   @AfterClass

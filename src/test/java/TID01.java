@@ -31,12 +31,25 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 public class TID01 extends BaseTest {
-	WebElement searchBar;
+	POMDemo pom = null;
 	WebDriverWait wait;
+	
+	@BeforeTest
+  public void beforeTest() {
+  	super.beforeTest();
+  	pom = new POMDemo(driver);
+  }
+	
+	@BeforeMethod
+  public void beforeMethod() {
+  	super.beforeMethod();
+  	//initialize wait
+  	wait = new WebDriverWait(driver,20);
+  }
+	
   @Test
   public void TID01TestPositive() {
-  	searchBar.sendKeys("Blue");
-  	searchBar.sendKeys(Keys.ENTER);
+  	pom.setTextSearchBar("Blue");
   	wait.until(ExpectedConditions.titleContains("Search"));
   	//driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
   	List<WebElement> elements = driver.findElements(By.xpath(".//*[@id='center_column']/ul/li"));
@@ -50,7 +63,7 @@ public class TID01 extends BaseTest {
 		  String searchString = "Blose"; 
 		  String errorMsgActual; 
 		  String errorMsgExpected = "No results were found for your search \""+searchString +"\"";
-		  searchBar.sendKeys("Blose"); searchBar.sendKeys(Keys.ENTER); 
+		  pom.setTextSearchBar("Blose"); 
 		  //apply explicit wait
 		  wait.until(ExpectedConditions.titleContains("Search"));
 		  
@@ -59,33 +72,10 @@ public class TID01 extends BaseTest {
 		  errorMsgExpected); 
 	  }
 	 
-  
-  @BeforeMethod
-  public void beforeMethod() {
-  	super.beforeMethod();
-  	searchBar = driver.findElement(By.id("search_query_top"));
-  	wait = new WebDriverWait(driver,20);
-  }
-
-  @AfterMethod
-  public void afterMethod() {
-  }
-
-  @BeforeClass
-  public void beforeClass() {
-  }
-
-  @AfterClass
-  public void afterClass() {
-  }
-
-  @BeforeTest
-  public void beforeTest() {
-  	super.beforeTest();
-  }
 
   @AfterTest
   public void afterTest() {
+  	driver.quit();
   }
 
 
