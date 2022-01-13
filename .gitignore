@@ -1,1 +1,3 @@
+src/test/resources/reportSpark.html
 test-output/
+target/test-classes/reportSpark.html
