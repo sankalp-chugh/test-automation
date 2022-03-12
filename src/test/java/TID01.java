@@ -9,6 +9,7 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.AfterTest;
@@ -65,7 +66,7 @@ public class TID01 extends BaseTest {
 		test1.log(Status.INFO, "Searching with wrong name.");
 
 		//Search String and error msg
-		String searchString = "Blose"; 
+		String searchString = "Blue"; 
 		String errorMsgActual; 
 		String errorMsgExpected = "No results were found for your search \""+searchString +"\"";
 
@@ -85,6 +86,9 @@ public class TID01 extends BaseTest {
 			test1.pass("Error message matches", MediaEntityBuilder.createScreenCaptureFromPath("screenshot.png").build());
 		} catch (AssertionError e)
 		{
+			test1.fail("Error message does not match", MediaEntityBuilder.createScreenCaptureFromPath("src/test/resources").build());
+		}
+		catch (NoSuchElementException e) {
 			test1.fail("Error message does not match", MediaEntityBuilder.createScreenCaptureFromPath("src/test/resources").build());
 		}
 
